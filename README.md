@@ -90,7 +90,7 @@ job_portal/
 ```bash
 # If using git
 git clone <repository-url>
-cd job_portal
+cd job-portal-application
 
 # Or extract the ZIP file and navigate to the folder
 cd job-portal-application
