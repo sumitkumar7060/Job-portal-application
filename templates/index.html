@@ -1,0 +1,126 @@
+{% extends "base.html" %}
+
+{% block title %}Welcome - Job Portal{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <!-- Hero Section -->
+    <div class="row align-items-center mb-5">
+        <div class="col-lg-6 mb-4 mb-lg-0">
+            <h1 class="display-4 fw-bold mb-3">Find Your Dream Job</h1>
+            <p class="lead text-muted mb-4">
+                Connect with top employers and discover exciting career opportunities. 
+                Whether you're looking for your next challenge or seeking talented professionals, 
+                we've got you covered.
+            </p>
+            <div class="d-flex gap-3 flex-wrap">
+                <a href="{{ url_for('login') }}" class="btn btn-primary btn-lg">
+                    <i class="bi bi-box-arrow-in-right"></i> Login
+                </a>
+                <a href="#register-section" class="btn btn-outline-primary btn-lg">
+                    <i class="bi bi-person-plus"></i> Register
+                </a>
+            </div>
+        </div>
+        <div class="col-lg-6 text-center">
+            <img src="https://media.licdn.com/dms/image/v2/D5612AQHmWpsKqCEUgQ/article-cover_image-shrink_600_2000/article-cover_image-shrink_600_2000/0/1692110377639?e=2147483647&v=beta&t=8o8pbq1bZtrQjOZxyCis8GkK8FtHx38WqMoea3qjPB0" 
+                 alt="Job Portal" class="img-fluid rounded shadow-lg">
+        </div>
+    </div>
+    
+    <!-- Features Section -->
+    <div class="row mb-5">
+        <div class="col-12 text-center mb-4">
+            <h2 class="fw-bold">Why Choose Us?</h2>
+            <p class="text-muted">Everything you need to succeed in your career journey</p>
+        </div>
+        
+        <div class="col-md-4 mb-4">
+            <div class="card h-100 text-center p-4">
+                <div class="mb-3">
+                    <i class="bi bi-search fs-1 text-primary"></i>
+                </div>
+                <h5 class="card-title">Easy Job Search</h5>
+                <p class="card-text text-muted">
+                    Browse through hundreds of job listings and find the perfect match for your skills and experience.
+                </p>
+            </div>
+        </div>
+        
+        <div class="col-md-4 mb-4">
+            <div class="card h-100 text-center p-4">
+                <div class="mb-3">
+                    <i class="bi bi-building fs-1 text-success"></i>
+                </div>
+                <h5 class="card-title">Top Companies</h5>
+                <p class="card-text text-muted">
+                    Connect with leading employers across various industries looking for talented professionals.
+                </p>
+            </div>
+        </div>
+        
+        <div class="col-md-4 mb-4">
+            <div class="card h-100 text-center p-4">
+                <div class="mb-3">
+                    <i class="bi bi-lightning-charge fs-1 text-warning"></i>
+                </div>
+                <h5 class="card-title">Quick Apply</h5>
+                <p class="card-text text-muted">
+                    Apply to jobs with just a few clicks. Track your applications and get updates in real-time.
+                </p>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Registration Section -->
+    <div id="register-section" class="row mb-5">
+        <div class="col-12 text-center mb-4">
+            <h2 class="fw-bold">Get Started Today</h2>
+            <p class="text-muted">Choose your registration type</p>
+        </div>
+        
+        <div class="col-md-6 mb-4">
+            <div class="card h-100 p-5 text-center">
+                <div class="mb-4">
+                    <i class="bi bi-person-badge fs-1 text-primary"></i>
+                </div>
+                <h3 class="card-title mb-3">Job Seeker</h3>
+                <p class="card-text text-muted mb-4">
+                    Create your profile, browse jobs, and apply to positions that match your career goals.
+                </p>
+                <ul class="list-unstyled text-start mb-4">
+                    <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i> Browse job listings</li>
+                    <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i> Apply to multiple jobs</li>
+                    <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i> Track applications</li>
+                    <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i> Manage your profile</li>
+                </ul>
+                <a href="{{ url_for('register', role='jobseeker') }}" class="btn btn-primary btn-lg">
+                    Register as Job Seeker
+                </a>
+            </div>
+        </div>
+        
+        <div class="col-md-6 mb-4">
+            <div class="card h-100 p-5 text-center">
+                <div class="mb-4">
+                    <i class="bi bi-building fs-1 text-success"></i>
+                </div>
+                <h3 class="card-title mb-3">Employer</h3>
+                <p class="card-text text-muted mb-4">
+                    Post job openings, review applications, and find the perfect candidates for your company.
+                </p>
+                <ul class="list-unstyled text-start mb-4">
+                    <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i> Post unlimited jobs</li>
+                    <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i> Review applications</li>
+                    <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i> Manage job postings</li>
+                    <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i> Access talent pool</li>
+                </ul>
+                <a href="{{ url_for('register', role='employer') }}" class="btn btn-success btn-lg">
+                    Register as Employer
+                </a>
+            </div>
+        </div>
+    </div>
+    
+</div>
+{% endblock %}

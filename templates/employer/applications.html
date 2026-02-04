@@ -1,0 +1,151 @@
+{% extends "base.html" %}
+
+{% block title %}View Applications - Employer{% endblock %}
+
+{% block sidebar_menu %}
+<li>
+    <a href="{{ url_for('employer_dashboard') }}">
+        <i class="bi bi-speedometer2"></i>
+        <span class="menu-text">Dashboard</span>
+    </a>
+</li>
+<li>
+    <a href="{{ url_for('post_job') }}">
+        <i class="bi bi-plus-circle"></i>
+        <span class="menu-text">Post New Job</span>
+    </a>
+</li>
+{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class="row mb-4">
+        <div class="col">
+            <a href="{{ url_for('employer_dashboard') }}" class="btn btn-outline-secondary mb-3">
+                <i class="bi bi-arrow-left"></i> Back to Dashboard
+            </a>
+            <h1 class="fw-bold"><i class="bi bi-file-earmark-text text-primary"></i> Applications</h1>
+            <p class="text-muted">{{ job.title }}</p>
+        </div>
+    </div>
+    
+    <!-- Job Details Card -->
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header bg-primary text-white">
+                    <h5 class="mb-0"><i class="bi bi-briefcase"></i> Job Details</h5>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-8">
+                            <h4>{{ job.title }}</h4>
+                            <p class="text-muted mb-2">{{ job.description }}</p>
+                            {% if job.requirements %}
+                            <p><strong>Requirements:</strong> {{ job.requirements }}</p>
+                            {% endif %}
+                        </div>
+                        <div class="col-md-4">
+                            {% if job.location %}
+                            <p><strong>Location:</strong> {{ job.location }}</p>
+                            {% endif %}
+                            {% if job.job_type %}
+                            <p><strong>Type:</strong> <span class="badge bg-info">{{ job.job_type }}</span></p>
+                            {% endif %}
+                            {% if job.salary_range %}
+                            <p><strong>Salary:</strong> {{ job.salary_range }}</p>
+                            {% endif %}
+                            <p><strong>Status:</strong> 
+                                {% if job.status == 'active' %}
+                                <span class="badge bg-success">Active</span>
+                                {% else %}
+                                <span class="badge bg-secondary">Closed</span>
+                                {% endif %}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Applications List -->
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h5 class="mb-0">Applications Received</h5>
+                    <span class="badge bg-primary">{{ applications|length }} Applications</span>
+                </div>
+                <div class="card-body">
+                    {% if applications %}
+                    <div class="row">
+                        {% for app in applications %}
+                        <div class="col-md-6 mb-4">
+                            <div class="card h-100">
+                                <div class="card-body">
+                                    <div class="d-flex justify-content-between align-items-start mb-3">
+                                        <h5 class="card-title mb-0">{{ app.full_name }}</h5>
+                                        <span class="badge 
+                                            {% if app.status == 'pending' %}bg-warning
+                                            {% elif app.status == 'reviewed' %}bg-info
+                                            {% elif app.status == 'shortlisted' %}bg-success
+                                            {% else %}bg-secondary{% endif %}">
+                                            {{ app.status|title }}
+                                        </span>
+                                    </div>
+                                    
+                                    <div class="mb-3">
+                                        <p class="mb-1">
+                                            <i class="bi bi-envelope text-muted"></i> 
+                                            <small>{{ app.jobseeker_email }}</small>
+                                        </p>
+                                        {% if app.phone %}
+                                        <p class="mb-1">
+                                            <i class="bi bi-telephone text-muted"></i> 
+                                            <small>{{ app.phone }}</small>
+                                        </p>
+                                        {% endif %}
+                                        <p class="mb-1">
+                                            <i class="bi bi-calendar text-muted"></i> 
+                                            <small>Applied on {{ app.applied_at[:10] }}</small>
+                                        </p>
+                                    </div>
+                                    
+                                    {% if app.skills %}
+                                    <div class="mb-3">
+                                        <strong class="d-block mb-2">Skills:</strong>
+                                        <p class="small text-muted">{{ app.skills }}</p>
+                                    </div>
+                                    {% endif %}
+                                    
+                                    {% if app.experience %}
+                                    <div class="mb-3">
+                                        <strong class="d-block mb-2">Experience:</strong>
+                                        <p class="small text-muted">{{ app.experience }}</p>
+                                    </div>
+                                    {% endif %}
+                                    
+                                    {% if app.cover_letter %}
+                                    <div class="mb-3">
+                                        <strong class="d-block mb-2">Cover Letter:</strong>
+                                        <p class="small text-muted">{{ app.cover_letter }}</p>
+                                    </div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    {% else %}
+                    <div class="text-center py-5">
+                        <i class="bi bi-inbox fs-1 text-muted"></i>
+                        <p class="text-muted mt-3">No applications received yet.</p>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,184 @@
+{% extends "base.html" %}
+
+{% block title %}Admin Dashboard - Job Portal{% endblock %}
+
+{% block sidebar_menu %}
+<li>
+    <a href="{{ url_for('admin_dashboard') }}">
+        <i class="bi bi-speedometer2"></i>
+        <span class="menu-text">Dashboard</span>
+    </a>
+</li>
+<li>
+    <a href="{{ url_for('admin_jobs') }}">
+        <i class="bi bi-briefcase"></i>
+        <span class="menu-text">Manage Jobs</span>
+    </a>
+</li>
+<li>
+    <a href="{{ url_for('admin_employers') }}">
+        <i class="bi bi-building"></i>
+        <span class="menu-text">Manage Employers</span>
+    </a>
+</li>
+<li>
+    <a href="{{ url_for('admin_jobseekers') }}">
+        <i class="bi bi-people"></i>
+        <span class="menu-text">Manage Jobseekers</span>
+    </a>
+</li>
+{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class="row mb-4">
+        <div class="col">
+            <h1 class="fw-bold"><i class="bi bi-speedometer2 text-primary"></i> Admin Dashboard</h1>
+            <p class="text-muted">Overview of platform statistics</p>
+        </div>
+    </div>
+    
+    <!-- Summary Cards -->
+    <div class="row mb-4">
+        <div class="col-lg-3 col-md-6 mb-4">
+            <div class="card stat-card primary">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <h6 class="text-muted mb-2">Total Jobs</h6>
+                            <h2 class="fw-bold mb-0">{{ stats.total_jobs }}</h2>
+                        </div>
+                        <div class="text-primary">
+                            <i class="bi bi-briefcase fs-1"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-lg-3 col-md-6 mb-4">
+            <div class="card stat-card success">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <h6 class="text-muted mb-2">Total Employers</h6>
+                            <h2 class="fw-bold mb-0">{{ stats.total_employers }}</h2>
+                        </div>
+                        <div class="text-success">
+                            <i class="bi bi-building fs-1"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-lg-3 col-md-6 mb-4">
+            <div class="card stat-card warning">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <h6 class="text-muted mb-2">Total Jobseekers</h6>
+                            <h2 class="fw-bold mb-0">{{ stats.total_jobseekers }}</h2>
+                        </div>
+                        <div class="text-warning">
+                            <i class="bi bi-people fs-1"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-lg-3 col-md-6 mb-4">
+            <div class="card stat-card info">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <h6 class="text-muted mb-2">Total Applications</h6>
+                            <h2 class="fw-bold mb-0">{{ stats.total_applications }}</h2>
+                        </div>
+                        <div class="text-info">
+                            <i class="bi bi-file-earmark-text fs-1"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Time-based Statistics -->
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header bg-primary text-white">
+                    <h5 class="mb-0"><i class="bi bi-graph-up"></i> Jobs Posted Statistics</h5>
+                </div>
+                <div class="card-body">
+                    <div class="row text-center">
+                        <div class="col-md-3 mb-3">
+                            <div class="p-3 bg-light rounded">
+                                <i class="bi bi-calendar-day fs-2 text-primary mb-2"></i>
+                                <h4 class="fw-bold">{{ stats.daily_jobs }}</h4>
+                                <p class="text-muted mb-0">Today</p>
+                            </div>
+                        </div>
+                        <div class="col-md-3 mb-3">
+                            <div class="p-3 bg-light rounded">
+                                <i class="bi bi-calendar-week fs-2 text-success mb-2"></i>
+                                <h4 class="fw-bold">{{ stats.weekly_jobs }}</h4>
+                                <p class="text-muted mb-0">This Week</p>
+                            </div>
+                        </div>
+                        <div class="col-md-3 mb-3">
+                            <div class="p-3 bg-light rounded">
+                                <i class="bi bi-calendar-month fs-2 text-warning mb-2"></i>
+                                <h4 class="fw-bold">{{ stats.monthly_jobs }}</h4>
+                                <p class="text-muted mb-0">This Month</p>
+                            </div>
+                        </div>
+                        <div class="col-md-3 mb-3">
+                            <div class="p-3 bg-light rounded">
+                                <i class="bi bi-calendar-range fs-2 text-info mb-2"></i>
+                                <h4 class="fw-bold">{{ stats.yearly_jobs }}</h4>
+                                <p class="text-muted mb-0">This Year</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Quick Actions -->
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="mb-0"><i class="bi bi-lightning-charge"></i> Quick Actions</h5>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-4 mb-3">
+                            <a href="{{ url_for('admin_jobs') }}" class="btn btn-outline-primary w-100 py-3">
+                                <i class="bi bi-briefcase fs-4 d-block mb-2"></i>
+                                Manage Jobs
+                            </a>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <a href="{{ url_for('admin_employers') }}" class="btn btn-outline-success w-100 py-3">
+                                <i class="bi bi-building fs-4 d-block mb-2"></i>
+                                Manage Employers
+                            </a>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <a href="{{ url_for('admin_jobseekers') }}" class="btn btn-outline-warning w-100 py-3">
+                                <i class="bi bi-people fs-4 d-block mb-2"></i>
+                                Manage Jobseekers
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

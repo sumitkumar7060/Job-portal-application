@@ -1,0 +1,92 @@
+{% extends "base.html" %}
+
+{% block title %}Post New Job - Employer{% endblock %}
+
+{% block sidebar_menu %}
+<li>
+    <a href="{{ url_for('employer_dashboard') }}">
+        <i class="bi bi-speedometer2"></i>
+        <span class="menu-text">Dashboard</span>
+    </a>
+</li>
+<li>
+    <a href="{{ url_for('post_job') }}">
+        <i class="bi bi-plus-circle"></i>
+        <span class="menu-text">Post New Job</span>
+    </a>
+</li>
+{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class="row mb-4">
+        <div class="col">
+            <h1 class="fw-bold"><i class="bi bi-plus-circle text-success"></i> Post New Job</h1>
+            <p class="text-muted">Fill in the details below to create a new job posting</p>
+        </div>
+    </div>
+    
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="card">
+                <div class="card-body p-4">
+                    <form method="POST" action="{{ url_for('post_job') }}">
+                        <div class="mb-3">
+                            <label for="title" class="form-label">Job Title *</label>
+                            <input type="text" class="form-control" id="title" name="title" 
+                                   placeholder="e.g., Senior Software Engineer" required>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="description" class="form-label">Job Description *</label>
+                            <textarea class="form-control" id="description" name="description" rows="5" 
+                                      placeholder="Provide a detailed description of the role, responsibilities, and what you're looking for..." required></textarea>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="requirements" class="form-label">Requirements</label>
+                            <textarea class="form-control" id="requirements" name="requirements" rows="4" 
+                                      placeholder="List the required qualifications, skills, and experience..."></textarea>
+                        </div>
+                        
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="location" class="form-label">Location</label>
+                                <input type="text" class="form-control" id="location" name="location" 
+                                       placeholder="e.g., New York, NY">
+                            </div>
+                            
+                            <div class="col-md-6 mb-3">
+                                <label for="job_type" class="form-label">Job Type</label>
+                                <select class="form-select" id="job_type" name="job_type">
+                                    <option value="">Select job type</option>
+                                    <option value="Full-time">Full-time</option>
+                                    <option value="Part-time">Part-time</option>
+                                    <option value="Contract">Contract</option>
+                                    <option value="Freelance">Freelance</option>
+                                    <option value="Internship">Internship</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div class="mb-4">
+                            <label for="salary_range" class="form-label">Salary Range</label>
+                            <input type="text" class="form-control" id="salary_range" name="salary_range" 
+                                   placeholder="e.g., $80,000 - $120,000 per year">
+                        </div>
+                        
+                        <div class="d-flex gap-2">
+                            <button type="submit" class="btn btn-success">
+                                <i class="bi bi-check-circle"></i> Post Job
+                            </button>
+                            <a href="{{ url_for('employer_dashboard') }}" class="btn btn-outline-secondary">
+                                <i class="bi bi-x-circle"></i> Cancel
+                            </a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

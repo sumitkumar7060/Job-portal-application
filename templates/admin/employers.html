@@ -1,0 +1,127 @@
+{% extends "base.html" %}
+
+{% block title %}Manage Employers - Admin{% endblock %}
+
+{% block sidebar_menu %}
+<li>
+    <a href="{{ url_for('admin_dashboard') }}">
+        <i class="bi bi-speedometer2"></i>
+        <span class="menu-text">Dashboard</span>
+    </a>
+</li>
+<li>
+    <a href="{{ url_for('admin_jobs') }}">
+        <i class="bi bi-briefcase"></i>
+        <span class="menu-text">Manage Jobs</span>
+    </a>
+</li>
+<li>
+    <a href="{{ url_for('admin_employers') }}">
+        <i class="bi bi-building"></i>
+        <span class="menu-text">Manage Employers</span>
+    </a>
+</li>
+<li>
+    <a href="{{ url_for('admin_jobseekers') }}">
+        <i class="bi bi-people"></i>
+        <span class="menu-text">Manage Jobseekers</span>
+    </a>
+</li>
+{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class="row mb-4">
+        <div class="col">
+            <h1 class="fw-bold"><i class="bi bi-building text-success"></i> Manage Employers</h1>
+            <p class="text-muted">View and manage all registered employers</p>
+        </div>
+    </div>
+    
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h5 class="mb-0">All Employers</h5>
+                    <span class="badge bg-success">{{ employers|length }} Employers</span>
+                </div>
+                <div class="card-body">
+                    {% if employers %}
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead class="table-light">
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Company Name</th>
+                                    <th>Contact Person</th>
+                                    <th>Email</th>
+                                    <th>Phone</th>
+                                    <th>Registered Date</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for employer in employers %}
+                                <tr>
+                                    <td>{{ employer.id }}</td>
+                                    <td>
+                                        <strong>{{ employer.company_name }}</strong><br>
+                                        <small class="text-muted">{{ employer.address or 'No address' }}</small>
+                                    </td>
+                                    <td>{{ employer.contact_person or 'N/A' }}</td>
+                                    <td>{{ employer.email }}</td>
+                                    <td>{{ employer.phone or 'N/A' }}</td>
+                                    <td>{{ employer.created_at[:10] }}</td>
+                                    <td>
+                                        <button type="button" class="btn btn-sm btn-danger" 
+                                                onclick="confirmDelete('employer', {{ employer.id }}, '{{ employer.company_name }}')">
+                                            <i class="bi bi-trash"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                    {% else %}
+                    <div class="text-center py-5">
+                        <i class="bi bi-inbox fs-1 text-muted"></i>
+                        <p class="text-muted mt-3">No employers found.</p>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Delete Confirmation Modal -->
+<div class="modal fade" id="deleteModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Confirm Delete</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <p>Are you sure you want to delete <strong id="deleteItemName"></strong>?</p>
+                <p class="text-danger"><small>This will also delete all jobs posted by this employer and associated applications.</small></p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <form id="deleteForm" method="POST" style="display: inline;">
+                    <button type="submit" class="btn btn-danger">Delete</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function confirmDelete(entity, id, name) {
+        document.getElementById('deleteItemName').textContent = name;
+        document.getElementById('deleteForm').action = `/admin/delete/${entity}/${id}`;
+        new bootstrap.Modal(document.getElementById('deleteModal')).show();
+    }
+</script>
+{% endblock %}
