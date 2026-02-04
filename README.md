@@ -93,7 +93,7 @@ git clone <repository-url>
 cd job_portal
 
 # Or extract the ZIP file and navigate to the folder
-cd job_portal
+cd job-portal-application
 ```
 
 ### Step 2: Install Dependencies
